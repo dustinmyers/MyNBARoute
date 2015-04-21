@@ -8,17 +8,15 @@ app.config(function($routeProvider, $httpProvider){
   		templateUrl: 'js/home/homeTmpl.html',
   		controller: 'homeCtrl',
   	})
-
   	.when('/teams/:team', {
   		templateUrl: 'js/teams/teamTmpl.html',
   		controller: 'teamCtrl',
   		resolve: {
-            teamData: function(teamService, $route){
-            	var $route = $route.current.params.team
-                return teamService.getTeamData($route);
-        }
+            teamData: function($route, teamService){
+                return teamService.getTeamData($route.current.params.team);
+        	}
+		}
 	})
-
 	.otherwise({
 		redirectTo: '/'
 	})
