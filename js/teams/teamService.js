@@ -2,19 +2,24 @@ var app = angular.module('nbaRoutes');
 
 app.service('teamService', function($http, $q) {
 
-	this.addNewGame = function(gameObj) {
-		var url = "https://api.parse.com/1/classes/" + gameObj.homeTeam;
-		if ((gameObj.homeTeamScore * 1) > (gameObj.opponentScore * 1)) {
-			gameObj.gameWon === true;
+	this.addNewGame = function(newGame) {
+		parseInt(newGame.homeTeamScore);
+		parseInt(newGame.opponentTeamScore);
+		console.log(newGame.homeTeamScore);
+		console.log(newGame.opponentTeamScore);
+		newGame.won = true;
+		var url = "https://api.parse.com/1/classes/" + newGame.homeTeam;
+		if (newGame.homeTeamScore > newGame.opponentTeamScore) {
+			newGame.won = true;
 		} else {
-			gameObj.gameWon === false;
+			newGame.won = false;
 		}
+		console.log(newGame);
 		return $http ({
 			method: 'POST',
 			url: url,
-			data: gameObj
+			data: newGame
 		})
-		console.log(gameObj);
 	};
 
 	this.getTeamData = function(team) {

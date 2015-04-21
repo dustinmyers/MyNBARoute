@@ -37,12 +37,13 @@ app.controller('teamCtrl', function($scope, $routeParams, teamService, teamData)
 		console.log($scope.newGame)
 		teamService.addNewGame($scope.newGame)
 		.then(function() {
-	        teamService.getTeamData($scope.newGame.homeTeam)
+			console.log($scope.newGame.homeTeam)
+	        teamService.getTeamData($scope.newGame)
 	        .then(function(results) {
 	        	console.log(results);
 	        	$scope.teamData = results;
 				$scope.showNewGameForm = false;
-				// $scope.teamData = {};
+				$scope.newGame = {};
 	        	
 	        })
 	    })
